@@ -1,0 +1,18 @@
+{
+    "sourceFile": "app/components/navbar/Navbar.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1692328991886,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1692328991886,
+            "name": "Commit-0",
+            "content": "/** @format */\n\"use client\";\nimport React from \"react\";\nimport Container from \"../Container\";\nimport Logo from \"./Logo\";\nimport Search from \"./Search\";\nimport UserMenu from \"./UserMenu\";\nimport { SafeUser } from \"@/app/types\";\nimport Categories from \"./Categories\";\n\ninterface NavbarProps {\n      currentUser ?: SafeUser | null;\n}\n\nconst Navbar: React.FC<NavbarProps>= ({currentUser}) => {\n      return (\n            <div className='fixed w-full bg-white z-10 shadow-sm'>\n                  <div className='py-4 border-b-[1px]'>\n                        <Container>\n                              <div className='flex flex-row items-center justify-between gap-3 md:gap-0'>\n                                    <Logo />\n                                    <Search />\n                                    <UserMenu currentUser={currentUser}/>\n                              </div>\n                        </Container>\n                  </div>\n                  <Categories/>\n            </div>\n      );\n};\n\nexport default Navbar;\n"
+        }
+    ]
+}
