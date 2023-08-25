@@ -1,0 +1,30 @@
+{
+    "sourceFile": "app/hooks/userCountries.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1692930027264,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1692930101406,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,17 @@\n+import countries from \"world-countries\";\n+\n+\n+const formattedCountries = countries.map((country) => ({\n+      value: country.cca2,\n+      label: country.name.common,\n+      flag: country.flag,\n+      latlng: country.latlng,\n+      region: country.region,\n+}));\n+\n+const useCountries = () => {\n+    const getAll = () => formattedCountries\n+    const getByValue = (value:string) => {\n+        return formattedCountries.find(item=>item.value === value)\n+    }\n+}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1692930120552,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,15 +13,12 @@\n     const getAll = () => formattedCountries\n     const getByValue = (value:string) => {\n         return formattedCountries.find(item=>item.value === value)\n     }\n+\n+    return {\n+        getAll,\n+        getByValue\n+    }\n }\n-import countries from \"world-countries\";\n \n-\n-const formattedCountries = countries.map(country => ({\n-    value:country.cca2,\n\\ No newline at end of file\n-    label:country.name.common,\n-    flag:country.flag,\n-    latlng: country.latlng,\n-    region:country.region\n-}))\n+export default useCountries\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1692930164237,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,8 @@\n+/** @format */\n+\n import countries from \"world-countries\";\n \n-\n const formattedCountries = countries.map((country) => ({\n       value: country.cca2,\n       label: country.name.common,\n       flag: country.flag,\n@@ -9,16 +10,16 @@\n       region: country.region,\n }));\n \n const useCountries = () => {\n-    const getAll = () => formattedCountries\n-    const getByValue = (value:string) => {\n-        return formattedCountries.find(item=>item.value === value)\n-    }\n+      const getAll = () => formattedCountries;\n+      const getByValue = (value: string) => {\n+            return formattedCountries.find((item) => item.value === value);\n+      };\n \n-    return {\n-        getAll,\n-        getByValue\n\\ No newline at end of file\n-    }\n-}\n+      return {\n+            getAll,\n+            getByValue,\n+      };\n+};\n \n-export default useCountries\n+export default useCountries;\n"
+                }
+            ],
+            "date": 1692930027264,
+            "name": "Commit-0",
+            "content": "import countries from \"world-countries\";\n\n\nconst formattedCountries = countries.map(country => ({\n    value:country.cca2,\n    label:country.name.common,\n    flag:country.flag,\n    latlng: country.latlng,\n    region:country.region\n}))"
+        }
+    ]
+}
