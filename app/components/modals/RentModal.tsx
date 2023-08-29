@@ -14,6 +14,7 @@ import Map from "../Map";
 import dynamic from "next/dynamic";
 import { FaLessThan } from "react-icons/fa";
 import Counter from "../inputs/Counter";
+import ImageUpload from "../inputs/ImageUpload";
 
 enum STEPS {
       CATEGORY = 0,
@@ -57,6 +58,7 @@ const RentModal = () => {
       const guestCount = watch('guestCount'); // to store the form values
       const roomCount = watch('roomCount'); // to store the form values
       const bathroomCount = watch('bathroomCount'); // to store the form values
+      const imageSrc = watch('imageSrc'); // to store the form values
 
 
       const Map = useMemo(() => dynamic(() => import("../Map"), { ssr: false }), [location]);
@@ -131,6 +133,18 @@ const RentModal = () => {
                         <Counter  title="Bathrooms" subtitle="How many bathrooms do you have?" value={bathroomCount} onChange={(value)=> setCustomValue('bathroomCount' , value)}/>
                   </div>
             )
+      }
+
+      if (step === STEPS.IMAGES) {
+            bodyContent = (
+                  <div className='flex flex-col gap-8'>
+                        <Heading
+                              title='Add photo of your place'
+                              subtitle='Show guests what your place looks!'
+                        />
+                        <ImageUpload onChange={(value) => setCustomValue('imageSrc', value)} value={imageSrc} />
+                  </div>
+            );
       }
 
       return (
