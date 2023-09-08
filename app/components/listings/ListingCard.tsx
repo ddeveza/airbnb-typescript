@@ -3,8 +3,8 @@
 "use client";
 import Image from "next/image";
 import useCountries from "@/app/hooks/userCountries";
-import { SafeUser } from "@/app/types";
-import { Listing, Reservation } from "@prisma/client";
+
+import { Listing, Reservation, User } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { format } from "date-fns";
 
@@ -19,7 +19,7 @@ interface ListingCardProps {
       disabled?: boolean;
       actionLabel?: string;
       actionId?: string;
-      currentUser?: any ; //TODO NEED TO DEBUG THIS
+      currentUser: User | null ; //TODO NEED TO DEBUG THIS
 }
 
 const ListingCard: React.FC<ListingCardProps> = ({ data, actionId = "", actionLabel, currentUser, disabled, onAction, reservation }) => {

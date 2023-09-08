@@ -10,10 +10,11 @@ import useLoginModal from "../../hooks/useLoginModal"
 import { signOut } from "next-auth/react";
 import { SafeUser } from "@/app/types"; //TODO try to use USER from prisma client
 import useRentModal from "@/app/hooks/useRentModal";
+import { User } from "@prisma/client";
 
 
 interface UserMenuProps {
-      currentUser?:SafeUser | null;
+      currentUser: User | null;
 }
 
 const UserMenu: React.FC<UserMenuProps> = ({currentUser}) => {
