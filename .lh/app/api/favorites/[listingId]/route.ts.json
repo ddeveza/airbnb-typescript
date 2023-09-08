@@ -1,0 +1,38 @@
+{
+    "sourceFile": "app/api/favorites/[listingId]/route.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 5,
+            "patches": [
+                {
+                    "date": 1693882094614,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1693882573107,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,12 +1,21 @@\n+/** @format */\n+\n import { NextResponse } from \"next/server\";\n \n import getCurrentUser from \"@/app/actions/getCurrentuser\";\n-import prisma from \"@/app/libs/prismadb\"\n+import prisma from \"@/app/libs/prismadb\";\n \n interface IParams {\n-    listingId:string;\n+      listingId?: string;\n }\n\\ No newline at end of file\n \n-export async funtion POST( request: Request, {params} : {params :IParams}) {\n+export async function POST(request: Request, { params }: { params: IParams }) {\n+    const currentUser = await getCurrentUser();\n+    \n+    if(!currentUser) {\n+        return NextResponse.error();\n+    }\n \n-}\n+    const {listingId} = params;\n+    \n+}\n"
+                },
+                {
+                    "date": 1693882670079,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,6 +16,9 @@\n         return NextResponse.error();\n     }\n \n     const {listingId} = params;\n-    \n-}\n\\ No newline at end of file\n+\n+    if(!listingId || typeof listingId !== 'string') {\n+         throw new Error('Invalid ID');\n+    }\n+}\n"
+                },
+                {
+                    "date": 1693882997766,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,5 +20,18 @@\n \n     if(!listingId || typeof listingId !== 'string') {\n          throw new Error('Invalid ID');\n     }\n+\n+    let favoriteIds = [...(currentUser.favoriteIds || [])];\n+    favoriteIds.push(listingId);\n+\n+    const user =await prisma.user.update( {\n+        where: {\n+            id:currentUser.id\n+        },\n+        data: {\n+            favoriteIds\n+        }\n+    })\n+\n }\n"
+                },
+                {
+                    "date": 1693886490283,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -31,7 +31,27 @@\n         },\n         data: {\n             favoriteIds\n         }\n-    })\n+    });\n \n+    return NextResponse.json(user)\n+\n }\n+\n+export async function DELETE (\n+    request:Request,\n+    {params} : {params:IParams}\n+){\n+    const currentUser = await getCurrentUser();\n+    \n+    if(!currentUser) {\n+        return NextResponse.error();\n+    }\n+\n+    const {listingId} = params;\n+\n+    if(!listingId || typeof listingId !== 'string') {\n+         throw new Error('Invalid ID');\n+    }\n+\n+}\n"
+                },
+                {
+                    "date": 1693886594118,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,49 +9,57 @@\n       listingId?: string;\n }\n \n export async function POST(request: Request, { params }: { params: IParams }) {\n-    const currentUser = await getCurrentUser();\n-    \n-    if(!currentUser) {\n-        return NextResponse.error();\n-    }\n+      const currentUser = await getCurrentUser();\n \n-    const {listingId} = params;\n+      if (!currentUser) {\n+            return NextResponse.error();\n+      }\n \n-    if(!listingId || typeof listingId !== 'string') {\n-         throw new Error('Invalid ID');\n-    }\n+      const { listingId } = params;\n \n-    let favoriteIds = [...(currentUser.favoriteIds || [])];\n-    favoriteIds.push(listingId);\n+      if (!listingId || typeof listingId !== \"string\") {\n+            throw new Error(\"Invalid ID\");\n+      }\n \n-    const user =await prisma.user.update( {\n-        where: {\n-            id:currentUser.id\n-        },\n-        data: {\n-            favoriteIds\n-        }\n-    });\n+      let favoriteIds = [...(currentUser.favoriteIds || [])];\n+      favoriteIds.push(listingId);\n \n-    return NextResponse.json(user)\n+      const user = await prisma.user.update({\n+            where: {\n+                  id: currentUser.id,\n+            },\n+            data: {\n+                  favoriteIds,\n+            },\n+      });\n \n+      return NextResponse.json(user);\n }\n \n-export async function DELETE (\n-    request:Request,\n-    {params} : {params:IParams}\n-){\n-    const currentUser = await getCurrentUser();\n-    \n-    if(!currentUser) {\n-        return NextResponse.error();\n-    }\n+export async function DELETE(request: Request, { params }: { params: IParams }) {\n+      const currentUser = await getCurrentUser();\n \n-    const {listingId} = params;\n+      if (!currentUser) {\n+            return NextResponse.error();\n+      }\n \n-    if(!listingId || typeof listingId !== 'string') {\n-         throw new Error('Invalid ID');\n-    }\n+      const { listingId } = params;\n \n+      if (!listingId || typeof listingId !== \"string\") {\n+            throw new Error(\"Invalid ID\");\n+      }\n+      let favoriteIds = [...(currentUser.favoriteIds || [])];\n+      favoriteIds = favoriteIds.filter((id) => id === listingId);\n+\n+      const user = await prisma.user.update({\n+            where: {\n+                  id: currentUser.id,\n+            },\n+            data: {\n+                  favoriteIds,\n+            },\n+      });\n+\n+      return NextResponse.json(user);\n }\n"
+                }
+            ],
+            "date": 1693882094614,
+            "name": "Commit-0",
+            "content": "import { NextResponse } from \"next/server\";\n\nimport getCurrentUser from \"@/app/actions/getCurrentuser\";\nimport prisma from \"@/app/libs/prismadb\"\n\ninterface IParams {\n    listingId:string;\n}\n\nexport async funtion POST( request: Request, {params} : {params :IParams}) {\n\n}"
+        }
+    ]
+}
