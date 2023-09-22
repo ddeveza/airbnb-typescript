@@ -19,7 +19,7 @@ interface ListingCardProps {
       disabled?: boolean;
       actionLabel?: string;
       actionId?: string;
-      currentUser: User | null ; //TODO NEED TO DEBUG THIS
+      currentUser?: User | null ; //TODO NEED TO DEBUG THIS
 }
 
 const ListingCard: React.FC<ListingCardProps> = ({ data, actionId = "", actionLabel, currentUser, disabled, onAction, reservation }) => {

@@ -9,7 +9,7 @@ import { User } from "@prisma/client";
 
 interface HeartButtonProps {
       listingId: string;
-      currentUser: User | null;
+      currentUser?: User | null;
 }
 
 const HeartButton: React.FC<HeartButtonProps> = ({ listingId, currentUser }) => {
