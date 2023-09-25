@@ -26,12 +26,14 @@ export async function DELETE(
   const reservation = await prisma.reservation.deleteMany({
     where: {
       id: reservationsId,
-      OR: [
-        { userId: currentUser.id },
+      OR: [ //OR is either the userID is the owner or listing id
+        { userId: currentUser.id }, 
         { listing: { userId: currentUser.id } }
       ]
     }
   });
+
+ 
 
   return NextResponse.json(reservation);
 }
