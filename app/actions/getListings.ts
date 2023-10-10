@@ -1,6 +1,6 @@
 import prisma from "@/app/libs/prismadb";
 
-/* export interface IListingsParams {
+export interface IListingsParams {
   userId?: string;
   guestCount?: number;
   roomCount?: number;
@@ -10,12 +10,12 @@ import prisma from "@/app/libs/prismadb";
   locationValue?: string;
   category?: string;
 }
- */
+
 export default async function getListings(
-  /* params: IListingsParams */
+  params: IListingsParams
 ) {
   try {
-  /*   const {
+    const {
       userId,
       roomCount, 
       guestCount, 
@@ -76,7 +76,7 @@ export default async function getListings(
         }
       }
     }
- */
+
     const listings = await prisma.listing.findMany({
      /*  where: query, */
       orderBy: {
@@ -84,10 +84,7 @@ export default async function getListings(
       }
     });
 
-/*     const safeListings = listings.map((listing) => ({
-      ...listing,
-      createdAt: listing.createdAt.toISOString(),
-    })); */
+    
 
     return listings;
   } catch (error: any) {
