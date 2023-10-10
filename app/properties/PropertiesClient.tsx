@@ -24,12 +24,14 @@ const PropertiesClient: React.FC<PropertiesClientProps> = ({
   const router = useRouter();
   const [deletingId, setDeletingId] = useState('');
 
-  const onCancel = useCallback((id: string) => {
+  const onDelete = useCallback((id: string) => {
+    console.log({id})
     setDeletingId(id);
 
     axios.delete(`/api/listings/${id}`)
-    .then(() => {
-      toast.success('Listing cancelled');
+    .then((res:any) => {
+      console.log({res})
+      toast.success('Listing deleted');
       router.refresh();
     })
     .catch((error) => {
@@ -65,7 +67,7 @@ const PropertiesClient: React.FC<PropertiesClientProps> = ({
             key={listing.id}
             data={listing}
             actionId={listing.id}
-            onAction={onCancel}
+            onAction={onDelete}
             disabled={deletingId === listing.id}
             actionLabel="Delete Property"
             currentUser={currentUser}
