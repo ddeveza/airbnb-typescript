@@ -9,6 +9,7 @@ import LoginModal from "./components/modals/LoginModal";
 import getCurrentUser from "./actions/getCurrentuser";
 import RentModal from "./components/modals/RentModal";
 import ClientOnly from "./components/ClientOnly";
+import SearchModal from "./components/modals/SearchModal";
 
 const font = Nunito({ subsets: ["latin"] });
 
@@ -24,6 +25,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <html lang='en'>
                   <body className={font.className}>
                         <ClientOnly>
+                              <SearchModal/>
                               <ToasterProvider /> {/* need to create toaster provider it will cause error if directly use Toaster*/}
                               <RegisterModal />
                               <LoginModal />
