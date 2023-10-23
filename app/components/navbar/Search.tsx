@@ -24,6 +24,8 @@ const Search = (props: Props) => {
             if (locationValue) {
                   return getByValue(locationValue as string)?.label;
             }
+
+            return 'Anywhere'
       }, [getByValue, locationValue]);
 
       const durationLabel = useMemo(() => {
